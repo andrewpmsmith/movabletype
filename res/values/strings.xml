@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MovableType</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="menu_settings">Settings</string>
+    <string name="app_name">Movable Type</string>
     <string name="title_activity_launch_screen">LaunchScreen</string>
     <string name="clear_button">clear</string>
     <string name="submit_button">submit</string>
