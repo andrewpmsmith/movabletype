@@ -1,3 +1,11 @@
+MovableType is a two player word game for Android.
+
+It is based on the iPhone game LetterPress which is available on the iTunes 
+store at https://itunes.apple.com/gb/app/letterpress-word-game/id526619424?mt=8.
+
+The main difference is that both players use the same device, therefore 
+it can be played without an internet connection.
+
 Tests
 
 Unit tests are stored in the directory ./test. The tests should be loaded as a separate
@@ -8,8 +16,7 @@ This will subject the application to a series of random screen gestures. Note th
 random seed is specified to help reproduction of problems, however this is not guaranteed
 to work as the timing may be affected by the state of the device.
 
-
-Licence
+License
 
 Word list from: http://www.curlewcommunications.co.uk/wordlist.html Used under the
 following agreement: These files are provided "as is" without any warranty. They may be
