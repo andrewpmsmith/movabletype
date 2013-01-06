@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color
+        name="background"
+        >#fff0efec</color>
+    <color
+        name="tile_even"
+        >#ffe8e7e4</color>
+    <color
+        name="tile_odd"
+        >#ffe6e5e2</color>
+    <color
+        name="player1"
+        >#fff7998d</color>
+    <color
+        name="player1_surrounded"
+        >#ffff432f</color>
+    <color
+        name="player2"
+        >#ff78c8f5</color>
+    <color
+        name="player2_surrounded"
+        >#ff00a2ff</color>
+    <color
+        name="tile_text"
+        >#FF000000</color>
+    <color
+        name="tile_dropshadow"
+        >#FF444444</color>
+</resources>

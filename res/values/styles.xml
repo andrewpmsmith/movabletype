@@ -1,0 +1,8 @@
+<resources>
+
+    <style name="AppTheme" parent="android:Theme.Light" />
+    
+    <style name="instruction_title" parent="@android:attr/textAppearanceMedium"></style>
+    
+
+</resources>
