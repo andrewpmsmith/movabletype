@@ -15,7 +15,7 @@ import com.andrewpmsmith.movabletype.gameframework.TranslationAnimation;
 import com.andrewpmsmith.movabletype.gameframework.Widget;
 import com.andrewpmsmith.movabletype.gameframework.WidgetClickObserver;
 import com.andrewpmsmith.movabletype.gameframework.WidgetDragObserver;
-import com.andrewpmsmith.movabletype.model.TileWobbleAnimation;
+import com.andrewpmsmith.movabletype.model.GameModel;
 
 import android.app.AlertDialog;
 import android.content.Context;

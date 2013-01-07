@@ -3,7 +3,6 @@ package com.andrewpmsmith.movabletype.model;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.andrewpmsmith.movabletype.ui.GameModel;
 
 import android.content.ContentValues;
 import android.content.Context;

@@ -5,7 +5,7 @@ import java.util.List;
 import junit.framework.Assert;
 
 import com.andrewpmsmith.movabletype.model.GameDataBase;
-import com.andrewpmsmith.movabletype.ui.GameModel;
+import com.andrewpmsmith.movabletype.model.GameModel;
 
 import android.test.AndroidTestCase;
 

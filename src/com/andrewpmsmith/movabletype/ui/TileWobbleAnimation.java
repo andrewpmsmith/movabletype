@@ -1,4 +1,4 @@
-package com.andrewpmsmith.movabletype.model;
+package com.andrewpmsmith.movabletype.ui;
 
 import com.andrewpmsmith.movabletype.gameframework.Interpolators;
 import com.andrewpmsmith.movabletype.gameframework.Widget;

@@ -1,13 +1,10 @@
-package com.andrewpmsmith.movabletype.ui;
+package com.andrewpmsmith.movabletype.model;
 
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import com.andrewpmsmith.movabletype.model.Serializer;
-import com.andrewpmsmith.movabletype.model.WordList;
-import com.andrewpmsmith.movabletype.model.WordTrie;
 
 import android.content.Context;
 

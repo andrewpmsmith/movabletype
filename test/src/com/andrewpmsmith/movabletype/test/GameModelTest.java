@@ -5,11 +5,11 @@ import java.util.List;
 
 import android.test.AndroidTestCase;
 
-import com.andrewpmsmith.movabletype.ui.GameModel;
-import com.andrewpmsmith.movabletype.ui.GameModel.GameResult;
-import com.andrewpmsmith.movabletype.ui.GameModel.GameState;
-import com.andrewpmsmith.movabletype.ui.GameModel.LetterState;
-import com.andrewpmsmith.movabletype.ui.GameModel.TurnResult;
+import com.andrewpmsmith.movabletype.model.GameModel;
+import com.andrewpmsmith.movabletype.model.GameModel.GameResult;
+import com.andrewpmsmith.movabletype.model.GameModel.GameState;
+import com.andrewpmsmith.movabletype.model.GameModel.LetterState;
+import com.andrewpmsmith.movabletype.model.GameModel.TurnResult;
 
 import junit.framework.Assert;
 

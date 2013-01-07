@@ -2,6 +2,7 @@ package com.andrewpmsmith.movabletype.ui;
 
 import com.andrewpmsmith.movabletype.R;
 import com.andrewpmsmith.movabletype.model.GameDataBase;
+import com.andrewpmsmith.movabletype.model.GameModel;
 import com.andrewpmsmith.movabletype.model.WordList;
 
 import android.os.Bundle;
