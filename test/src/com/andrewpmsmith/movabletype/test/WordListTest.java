@@ -2,7 +2,7 @@ package com.andrewpmsmith.movabletype.test;
 
 import android.test.AndroidTestCase;
 
-import com.andrewpmsmith.movabletype.WordList;
+import com.andrewpmsmith.movabletype.model.WordList;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;

@@ -1,4 +1,4 @@
-package com.andrewpmsmith.movabletype;
+package com.andrewpmsmith.movabletype.model;
 
 import android.annotation.SuppressLint;
 

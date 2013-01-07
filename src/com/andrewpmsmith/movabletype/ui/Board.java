@@ -1,9 +1,21 @@
-package com.andrewpmsmith.movabletype;
+package com.andrewpmsmith.movabletype.ui;
+
 
 import java.util.List;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Random;
+
+import com.andrewpmsmith.movabletype.R;
+import com.andrewpmsmith.movabletype.gameframework.ExpandContractAnimation;
+import com.andrewpmsmith.movabletype.gameframework.RenderSurface;
+import com.andrewpmsmith.movabletype.gameframework.RotationAnimation;
+import com.andrewpmsmith.movabletype.gameframework.TextWidget;
+import com.andrewpmsmith.movabletype.gameframework.TranslationAnimation;
+import com.andrewpmsmith.movabletype.gameframework.Widget;
+import com.andrewpmsmith.movabletype.gameframework.WidgetClickObserver;
+import com.andrewpmsmith.movabletype.gameframework.WidgetDragObserver;
+import com.andrewpmsmith.movabletype.model.TileWobbleAnimation;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,14 +23,6 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import GraphicsFramework.ExpandContractAnimation;
-import GraphicsFramework.RenderSurface;
-import GraphicsFramework.RotationAnimation;
-import GraphicsFramework.TextWidget;
-import GraphicsFramework.TranslationAnimation;
-import GraphicsFramework.Widget;
-import GraphicsFramework.WidgetClickObserver;
-import GraphicsFramework.WidgetDragObserver;
 
 public class Board extends RenderSurface
 		implements WidgetClickObserver, WidgetDragObserver {

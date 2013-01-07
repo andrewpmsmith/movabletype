@@ -1,4 +1,4 @@
-package com.andrewpmsmith.movabletype;
+package com.andrewpmsmith.movabletype.model;
 
 
 import java.io.BufferedReader;
@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Locale;
+
+import com.andrewpmsmith.movabletype.R;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -90,6 +92,7 @@ public class WordList extends SQLiteOpenHelper{
         		try {
         			db.insert(TABLE_WORDS, null, values);
         		} catch (SQLiteConstraintException e) {
+        			// Double instance of word in db
         			// Don't care, keep going
         		}
         	}

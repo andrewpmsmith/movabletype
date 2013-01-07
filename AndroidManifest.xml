@@ -13,12 +13,12 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.andrewpmsmith.movabletype.GameActivity"
+            android:name="com.andrewpmsmith.movabletype.ui.GameActivity"
             android:label="@string/title_activity_launch_screen"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.andrewpmsmith.movabletype.DashboardActivity"
+            android:name="com.andrewpmsmith.movabletype.ui.DashboardActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.andrewpmsmith.movabletype.InstructionsActivity"
+            android:name="com.andrewpmsmith.movabletype.ui.InstructionsActivity"
             android:label="@string/title_activity_instructions" >
         </activity>
     </application>

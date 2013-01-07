@@ -1,4 +1,4 @@
-package GraphicsFramework;
+package com.andrewpmsmith.movabletype.gameframework;
 
 import java.util.LinkedList;
 import java.util.List;

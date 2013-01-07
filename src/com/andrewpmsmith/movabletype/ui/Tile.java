@@ -1,8 +1,9 @@
-package com.andrewpmsmith.movabletype;
+package com.andrewpmsmith.movabletype.ui;
+
+import com.andrewpmsmith.movabletype.gameframework.TextWidget;
+import com.andrewpmsmith.movabletype.gameframework.WidgetClickObserver;
 
 import android.util.SparseIntArray;
-import GraphicsFramework.TextWidget;
-import GraphicsFramework.WidgetClickObserver;
 
 public class Tile extends TextWidget {
 	

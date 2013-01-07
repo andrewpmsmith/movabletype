@@ -1,4 +1,4 @@
-package GraphicsFramework;
+package com.andrewpmsmith.movabletype.gameframework;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

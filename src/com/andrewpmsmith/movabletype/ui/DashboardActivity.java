@@ -1,7 +1,10 @@
-package com.andrewpmsmith.movabletype;
+package com.andrewpmsmith.movabletype.ui;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import com.andrewpmsmith.movabletype.R;
+import com.andrewpmsmith.movabletype.model.GameDataBase;
 
 import android.os.Bundle;
 import android.app.Activity;

@@ -1,4 +1,4 @@
-package GraphicsFramework;
+package com.andrewpmsmith.movabletype.gameframework;
 
 public class TranslationAnimation extends WidgetAnimation {
 	

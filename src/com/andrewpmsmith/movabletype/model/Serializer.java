@@ -1,4 +1,4 @@
-package com.andrewpmsmith.movabletype;
+package com.andrewpmsmith.movabletype.model;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

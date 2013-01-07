@@ -1,8 +1,8 @@
-package com.andrewpmsmith.movabletype;
+package com.andrewpmsmith.movabletype.model;
 
-import GraphicsFramework.Interpolators;
-import GraphicsFramework.Widget;
-import GraphicsFramework.WidgetAnimation;
+import com.andrewpmsmith.movabletype.gameframework.Interpolators;
+import com.andrewpmsmith.movabletype.gameframework.Widget;
+import com.andrewpmsmith.movabletype.gameframework.WidgetAnimation;
 
 public class TileWobbleAnimation extends WidgetAnimation {
 	

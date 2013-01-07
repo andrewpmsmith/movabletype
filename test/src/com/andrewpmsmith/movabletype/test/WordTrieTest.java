@@ -1,6 +1,6 @@
 package com.andrewpmsmith.movabletype.test;
 
-import com.andrewpmsmith.movabletype.WordTrie;
+import com.andrewpmsmith.movabletype.model.WordTrie;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;

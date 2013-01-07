@@ -4,8 +4,8 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import com.andrewpmsmith.movabletype.GameDataBase;
-import com.andrewpmsmith.movabletype.GameModel;
+import com.andrewpmsmith.movabletype.model.GameDataBase;
+import com.andrewpmsmith.movabletype.ui.GameModel;
 
 import android.test.AndroidTestCase;
 

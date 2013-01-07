@@ -1,4 +1,6 @@
-package com.andrewpmsmith.movabletype;
+package com.andrewpmsmith.movabletype.ui;
+
+import com.andrewpmsmith.movabletype.R;
 
 import android.os.Bundle;
 import android.app.Activity;
