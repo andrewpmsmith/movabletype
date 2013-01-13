@@ -1,7 +1,7 @@
 MovableType
 ===========
 
-![Alt text](screenshot.png "Screenshot")
+![Alt text](https://raw.github.com/andrewpmsmith/movabletype/master/screenshot.png "Screenshot")
 
 Summary
 -------
