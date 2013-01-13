@@ -14,14 +14,6 @@ import com.andrewpmsmith.movabletype.model.GameModel.TurnResult;
 import junit.framework.Assert;
 
 public class GameModelTest extends AndroidTestCase {
-
-	protected void setUp() throws Exception {
-		super.setUp();
-	}
-
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
 	
 	private List<Integer> generateIndexListFromWord(String word, char[] grid) {
 		
@@ -46,7 +38,7 @@ public class GameModelTest extends AndroidTestCase {
 		
 	}
 	
-	/**
+	/*
 	 * Play a full game using sample data. Test that results are calculated
 	 * correctly. Test that rules are enforced for invalid turns.
 	 */
@@ -174,7 +166,7 @@ public class GameModelTest extends AndroidTestCase {
 		
 	}
 	
-	/**
+	/*
 	 * Test that instances can be serialized and restored
 	 */
 	public void test_serialization() {

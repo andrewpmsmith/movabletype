@@ -10,12 +10,6 @@ import com.andrewpmsmith.movabletype.model.GameModel;
 import android.test.AndroidTestCase;
 
 public class GameDataBaseTests extends AndroidTestCase {
-
-	protected void setUp() throws Exception {
-	}
-
-	protected void tearDown() throws Exception {
-	}
 	
 	public void test() {
 		

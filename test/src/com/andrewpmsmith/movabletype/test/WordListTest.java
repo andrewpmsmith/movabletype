@@ -1,21 +1,11 @@
 package com.andrewpmsmith.movabletype.test;
 
+import junit.framework.Assert;
 import android.test.AndroidTestCase;
 
 import com.andrewpmsmith.movabletype.model.WordList;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
-
 public class WordListTest extends AndroidTestCase {
-
-	protected void setUp() throws Exception {
-		super.setUp();
-	}
-
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
 	
 	public void test() {
 		WordList wl = new WordList(mContext);
