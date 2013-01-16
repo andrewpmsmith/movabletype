@@ -8,6 +8,15 @@ import java.util.Random;
 
 import android.content.Context;
 
+/**
+ * Manage the state of a game, including the state of the grid, word, 
+ * previously played words, and player scores.
+ * 
+ * A GameModel provides the data that is rendered on a Board object, and accepts
+ * user input via a Board object.
+ *
+ * @author Andrew Smith
+ */
 public class GameModel implements Serializable {
 	
 	public static final int GRID_COLUMNS = 5;

@@ -10,6 +10,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * Manages the creation and the access to the database that stores the saved 
+ * games. The games are stored as serialized instances of GameState.
+ *
+ * @author Andrew Smith
+ */
 public class GameDataBase extends SQLiteOpenHelper{
 	
 	public static final int	NULL_PARAMETER_ERROR = -1;

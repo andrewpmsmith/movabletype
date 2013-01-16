@@ -12,7 +12,12 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-/* Maintain a list of widgets and render them at 60 FPS */
+/**
+ * Maintains a list of widgets and renders them at up to 60 FPS. Manages
+ * touch events, distributing clicks and drags to the appropriate widget.
+ * 
+ * @author Andrew Smith
+ */
 public class RenderSurface extends SurfaceView implements SurfaceHolder.Callback {
 	
 	private static final int FRAMES_RATE = 60;	// frames per second

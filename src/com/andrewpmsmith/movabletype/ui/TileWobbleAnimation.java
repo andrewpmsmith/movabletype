@@ -4,6 +4,12 @@ import com.andrewpmsmith.movabletype.gameframework.Interpolators;
 import com.andrewpmsmith.movabletype.gameframework.Widget;
 import com.andrewpmsmith.movabletype.gameframework.WidgetAnimation;
 
+/**
+ * Animate a tile to "wobble" on the spot. Used to draw attention to a tile
+ * after it has been played.
+ *
+ * @author Andrew Smith
+ */
 public class TileWobbleAnimation extends WidgetAnimation {
 	
 	private float mStartAngle;

@@ -1,5 +1,10 @@
 package com.andrewpmsmith.movabletype.gameframework;
 
+/**
+ * Animate the coordinates of a widget within the Render Surface.
+ * 
+ * @author Andrew Smith
+ */
 public class TranslationAnimation extends WidgetAnimation {
 	
 	private int mStartX, mStartY, mEndX, mEndY;

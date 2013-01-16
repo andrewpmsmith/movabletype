@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Window;
 
+/**
+ * The activity that explains how to play the game.
+ *
+ * @author Andrew Smith
+ */
 public class InstructionsActivity extends Activity {
 
 	@Override

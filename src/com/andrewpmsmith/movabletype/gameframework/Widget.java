@@ -9,7 +9,11 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.view.MotionEvent;
 
-/* A simple rectangular widget that can be drawn by a RenderSurface */
+/**
+ * A simple rectangular widget that can be drawn by a RenderSurface.
+ * 
+ * @author Andrew Smith
+ */
 public class Widget {
 
 	protected Paint mPaint;

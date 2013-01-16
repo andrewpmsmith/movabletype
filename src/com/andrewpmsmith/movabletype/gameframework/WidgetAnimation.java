@@ -1,5 +1,10 @@
 package com.andrewpmsmith.movabletype.gameframework;
 
+/**
+ * A class to control the animation of a widget within the render surface.
+ * 
+ * @author Andrew Smith
+ */
 public abstract class WidgetAnimation {
 
 	protected Widget mWidget;

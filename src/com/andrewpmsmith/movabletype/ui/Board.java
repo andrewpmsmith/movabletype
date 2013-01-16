@@ -24,6 +24,16 @@ import com.andrewpmsmith.movabletype.gameframework.WidgetClickListener;
 import com.andrewpmsmith.movabletype.gameframework.WidgetDragListener;
 import com.andrewpmsmith.movabletype.model.GameModel;
 
+/**
+ * Controls the rendering of the board, including the letter grid, the word,
+ * the scores, and the "clear" and "submit" buttons.
+ * 
+ * The state of the game is managed by a GameModel object passed into the Board's 
+ * constructor. The Board will render the game contained in the GameModel. It 
+ * will manage the user interaction, passing turn details to the GameModel.
+ *
+ * @author Andrew Smith
+ */
 public class Board extends RenderSurface implements WidgetClickListener,
 		WidgetDragListener {
 

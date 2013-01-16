@@ -1,7 +1,12 @@
 package com.andrewpmsmith.movabletype.gameframework;
 
-public class Interpolators {
-
+/**
+ * The interpolators used by the animation framework.
+ * 
+ * @author Andrew Smith
+ */
+final public class Interpolators {
+	
 	static public double cosine(double complete) {
 		return Math.cos(Math.PI*(1 + complete))/2 + 1/2.0;
 	}

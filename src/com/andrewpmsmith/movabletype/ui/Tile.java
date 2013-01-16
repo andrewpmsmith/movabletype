@@ -5,6 +5,11 @@ import com.andrewpmsmith.movabletype.gameframework.WidgetClickListener;
 
 import android.util.SparseIntArray;
 
+/**
+ * Controls the rendering of an individual letter tile.
+ *
+ * @author Andrew Smith
+ */
 public class Tile extends TextWidget {
 	
 	static public int widthInGrid;

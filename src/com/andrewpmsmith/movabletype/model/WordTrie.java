@@ -5,6 +5,12 @@ import android.annotation.SuppressLint;
 import java.io.Serializable;
 import java.util.HashMap;
 
+/**
+ * Manages a Trie data structure used to store words and do fast lookups and 
+ * prefix checking.
+ *
+ * @author Andrew Smith
+ */
 public class WordTrie implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -1,5 +1,10 @@
 package com.andrewpmsmith.movabletype.gameframework;
 
+/**
+ * Animate the width of a widget.
+ * 
+ * @author Andrew Smith
+ */
 public class ExpandContractAnimation extends WidgetAnimation {
 	
 	private int mStartWidth;

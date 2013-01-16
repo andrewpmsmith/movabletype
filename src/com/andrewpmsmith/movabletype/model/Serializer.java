@@ -9,6 +9,13 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+/**
+ * A utility class used to encode objects into byte[] that can then be stored
+ * as a binary blob in an SQLite DB. This is the mechanism used for
+ * saving/loading games.
+ *
+ * @author Andrew Smith
+ */
 public final class Serializer {
 
 	public static Object deserialize(byte[] stream) {

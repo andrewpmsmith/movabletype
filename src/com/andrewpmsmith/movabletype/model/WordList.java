@@ -15,6 +15,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.andrewpmsmith.movabletype.R;
 
+/**
+ * Manages the creation and the access to the word list database, which can be 
+ * used to determine if a given string is an English word.
+ * 
+ * The database is initially constructed from a list of words contained in a 
+ * text file.
+ *
+ * @author Andrew Smith
+ */
 public class WordList extends SQLiteOpenHelper {
 
 	private static final int DATABASE_VERSION = 1;

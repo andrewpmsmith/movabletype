@@ -5,6 +5,11 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Paint.Style;
 
+/**
+ * A widget that contains a text string that is automatically scaled to fit inside.
+ * 
+ * @author Andrew Smith
+ */
 public class TextWidget extends Widget {
 	
 	private static final int TEXT_SIZE_DIVISOR = 2;

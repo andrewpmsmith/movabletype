@@ -9,6 +9,11 @@ import com.andrewpmsmith.movabletype.R;
 import com.andrewpmsmith.movabletype.model.GameDataBase;
 import com.andrewpmsmith.movabletype.model.GameModel;
 
+/**
+ * The activity that presents the game board.
+ *
+ * @author Andrew Smith
+ */
 public class GameActivity extends Activity {
 
 	public final static String EXTRA_GAME_ID = "gameId";

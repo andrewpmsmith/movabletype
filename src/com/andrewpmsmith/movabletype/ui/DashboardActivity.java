@@ -33,6 +33,12 @@ import com.andrewpmsmith.movabletype.R;
 import com.andrewpmsmith.movabletype.model.GameDataBase;
 import com.andrewpmsmith.movabletype.model.WordList;
 
+/**
+ * The activity that displays the main menu, allowing the creation of a new
+ * game, loading a previous game, or opening the instructions.
+ *
+ * @author Andrew Smith
+ */
 public class DashboardActivity extends Activity implements OnItemClickListener,
 		OnItemLongClickListener {
 	
