@@ -15,7 +15,6 @@ public class GameActivity extends Activity {
 
 	Board mBoard;
 	GameModel mGameModel;
-
 	long mSavedGameId;
 
 	@Override
@@ -45,10 +44,15 @@ public class GameActivity extends Activity {
 
 		GameDataBase gdb = new GameDataBase(this);
 
-		if (mSavedGameId < 0) {
+		if (mGameModel.getGameState() == GameModel.GameState.GAME_OVER) {
+			// Game has finished. Clean up the DB
+			gdb.deleteGame(mSavedGameId);
+		} else if (mSavedGameId < 0) {
+			// Add a new saved game entry
 			mSavedGameId = gdb.addGame(mGameModel);
 			getIntent().putExtra(EXTRA_GAME_ID, mSavedGameId);
 		} else {
+			// Update current saved game
 			gdb.updateGame(mSavedGameId, mGameModel);
 		}
 	}

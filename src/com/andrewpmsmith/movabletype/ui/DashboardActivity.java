@@ -3,6 +3,7 @@ package com.andrewpmsmith.movabletype.ui;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.R.id;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -12,15 +13,21 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.andrewpmsmith.movabletype.R;
 import com.andrewpmsmith.movabletype.model.GameDataBase;
@@ -28,22 +35,25 @@ import com.andrewpmsmith.movabletype.model.WordList;
 
 public class DashboardActivity extends Activity implements OnItemClickListener,
 		OnItemLongClickListener {
-
-	private String[] mFixedOptions;
+	
+	private static final int FIXED_OPTIONS = 2;
+	private static final int NEW_GAME = 0;
+	private static final int HOW_TO_PLAY = 1;
+	
 	private List<Long> mSavedGames;
 	private ListView mListView;
 
 	private List<String> mOptions;
-	private ArrayAdapter<String> mAdapter;
+	private DashboardListAdapter mListItemsAdapter;
 
 	private GameDataBase mSavedGameDB;
 
-	private class LoadDBInBackgroundTest extends AsyncTask<Void, Void, Boolean> {
+	private class LoadDBTask extends AsyncTask<Void, Void, Boolean> {
 
 		private final Context mContext;
 		private ProgressDialog progressDialog;
 
-		public LoadDBInBackgroundTest(Context context) {
+		public LoadDBTask(Context context) {
 			super();
 			mContext = context;
 		}
@@ -74,7 +84,48 @@ public class DashboardActivity extends Activity implements OnItemClickListener,
 				progressDialog.dismiss();
 			}
 		}
-	}
+	} // LoadDBTask
+
+	private class DashboardListAdapter extends ArrayAdapter<String> {
+		private final Context mContext;
+		private final List<String> mValues;
+		private final static int ITEM_LAYOUT = R.layout.dashboart_list_item;
+
+		public DashboardListAdapter(Context context, List<String> values) {
+			super(context, ITEM_LAYOUT, values);
+			mContext = context;
+			mValues = values;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			
+			View view = convertView;
+			
+			if (convertView==null) {
+				LayoutInflater inflater = (LayoutInflater) mContext
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				view = inflater.inflate(ITEM_LAYOUT, parent, false);
+			}
+			
+			TextView textView = (TextView) view.findViewById(id.text1);
+			if (textView!=null) textView.setText(mValues.get(position));
+			
+			if (position<FIXED_OPTIONS) {
+				ImageView icon = (ImageView) view.findViewById(R.id.list_image);
+				Bitmap bm;
+				if (position==NEW_GAME) {
+					bm = BitmapFactory.decodeResource(getResources(), R.drawable.plus_icon);
+				} else {
+					bm = BitmapFactory.decodeResource(getResources(), R.drawable.help_icon);
+				}
+				icon.setImageBitmap(bm);
+			}
+			
+			return view;
+		}
+
+	} // DashboardListAdapter
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,48 +138,45 @@ public class DashboardActivity extends Activity implements OnItemClickListener,
 		mListView.setOnItemLongClickListener(this);
 		mListView.setEnabled(false);
 
-		Resources res = getResources();
-		mFixedOptions = res.getStringArray(R.array.dashboard_options);
-
 		mSavedGameDB = new GameDataBase(this);
 
-		LoadDBInBackgroundTest l = new LoadDBInBackgroundTest(this);
+		LoadDBTask l = new LoadDBTask(this);
 		l.execute();
 	}
 
 	@Override
 	public void onResume() {
+
 		super.onResume();
 
 		mSavedGames = mSavedGameDB.getAllGameKeys();
 
 		mOptions = new LinkedList<String>();
-
-		for (int i = 0; i < mFixedOptions.length; ++i) {
-			mOptions.add(mFixedOptions[i]);
-		}
+		
+		mOptions.add(getString(R.string.new_game));
+		mOptions.add(getString(R.string.how_to_play));
 
 		String savedGame = getResources().getString(R.string.saved_game);
 
 		for (int i = 0; i < mSavedGames.size(); ++i) {
 			mOptions.add(savedGame + " " + (i + 1));
 		}
+		
+		mListItemsAdapter = new DashboardListAdapter(this, mOptions);
 
-		mAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, mOptions);
+		mListView.setAdapter(mListItemsAdapter);
 
-		mListView.setAdapter(mAdapter);
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 
-		if (pos == 0) {
+		if (pos == NEW_GAME) {
 			Intent newGameintent = new Intent(DashboardActivity.this,
 					GameActivity.class);
 
 			startActivity(newGameintent);
-		} else if (pos == 1) {
+		} else if (pos == HOW_TO_PLAY) {
 			Intent instructionsIntent = new Intent(DashboardActivity.this,
 					InstructionsActivity.class);
 
@@ -137,7 +185,7 @@ public class DashboardActivity extends Activity implements OnItemClickListener,
 			Intent savedGameIntent = new Intent(DashboardActivity.this,
 					GameActivity.class);
 
-			int gameIndex = pos - mFixedOptions.length;
+			int gameIndex = pos - FIXED_OPTIONS;
 
 			savedGameIntent.putExtra(GameActivity.EXTRA_GAME_ID,
 					mSavedGames.get(gameIndex));
@@ -150,8 +198,9 @@ public class DashboardActivity extends Activity implements OnItemClickListener,
 	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int pos,
 			long id) {
 
-		if (pos < mFixedOptions.length)
+		if (pos < FIXED_OPTIONS) {
 			return false;
+		}
 
 		final int selection = pos;
 		final AdapterView<?> adapter = arg0;
@@ -169,11 +218,11 @@ public class DashboardActivity extends Activity implements OnItemClickListener,
 							public void onClick(DialogInterface di, int arg1) {
 
 								mSavedGameDB.deleteGame(mSavedGames
-										.get(selection - mFixedOptions.length));
+										.get(selection - FIXED_OPTIONS));
 								mSavedGames.remove(selection
-										- mFixedOptions.length);
+										- FIXED_OPTIONS);
 
-								mAdapter.remove(mAdapter.getItem(selection));
+								mListItemsAdapter.remove(mListItemsAdapter.getItem(selection));
 								adapter.requestLayout();
 
 							}

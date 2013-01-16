@@ -122,7 +122,7 @@ public class WordTrieTest extends TestCase {
 	}
 	
 	
-	/**
+	/*
 	 * Returns a unique string of CAPITALS
 	 */
 	private String characterSequence(int n) {
@@ -137,7 +137,7 @@ public class WordTrieTest extends TestCase {
 	}
 	
 	
-	/**
+	/*
 	 * Test that functionality is maintained under high load.
 	 */
 	public void test_load() {

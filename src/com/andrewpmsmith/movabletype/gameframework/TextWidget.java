@@ -18,16 +18,15 @@ public class TextWidget extends Widget {
 	
 	public static TextWidget tileFactory(String text, int color, int textColor, 
 			int x, int y, int width, int height, 
-			WidgetClickObserver clickObserver) {
+			WidgetClickListener clickListener) {
 		TextWidget w = new TextWidget(color, text, textColor);
-		w.setClickObserver(clickObserver);
+		w.setClickListener(clickListener);
 		w.applyLayout(x, y, width, height);
 		return w;
 	}
 	
 	public TextWidget(int color, String letter, int textColor) {
 		super(color);
-		// TODO Auto-generated constructor stub
 		
 		mText = letter;
 		
@@ -53,9 +52,9 @@ public class TextWidget extends Widget {
 		}
 	}
 	
-	/* Calculate the text size relative to the width of the widget.
-	 * Calculate based on the letter "W" (the widest char) so other letters are scaled evenly.
-	 * Results are hashed to avoid per widget calculations */
+	/* Calculate a font size that will allow the text to fit entirely within 
+	 * the Widget's bounds.
+	 */
 	protected int calculateTextSize(String text, int width) {
 		
 		int textSize = mHeight/TEXT_SIZE_DIVISOR;

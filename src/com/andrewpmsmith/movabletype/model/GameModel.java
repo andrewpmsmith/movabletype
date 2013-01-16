@@ -18,9 +18,8 @@ public class GameModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private static final int NUMBER_OF_VOWELS_ON_BOARD = 4;
-	private static final char[] CONSONANTS =
-			"BCDFHJKLMNPQRSTVWXYZ".toCharArray();
-	private static final char[] VOWELS = "AEIOU".toCharArray();
+	private static final String CONSONANTS = "BCDFHJKLMNPQRSTVWXYZ";
+	private static final String VOWELS = "AEIOU";
 	
 	public enum GameState {
 		PLAYER1_TURN,
@@ -98,6 +97,10 @@ public class GameModel implements Serializable {
 		return gm;
 	}
 	
+	private void setContext(Context context) {
+		mContext = context;
+	}
+	
 	public byte[] serialize() {
 		return Serializer.serialize(this);
 	}
@@ -114,12 +117,6 @@ public class GameModel implements Serializable {
 		mGameState = gameState;
 		mPlayer1Points = p1Points;
 		mPlayer2Points = p2Points;
-		
-		mContext = context;
-		
-	}
-	
-	public void setContext(Context context) {
 		
 		mContext = context;
 		
@@ -299,12 +296,12 @@ public class GameModel implements Serializable {
 			
 			if (v.contains(i)) {
 				// pick a random vowel
-				int pos = r.nextInt(VOWELS.length); 
-				c = VOWELS[pos];
+				int pos = r.nextInt(VOWELS.length()); 
+				c = VOWELS.charAt(pos);
 			} else {
 				// pick a random consonant
-				int pos = r.nextInt(CONSONANTS.length); 
-				c = CONSONANTS[pos];
+				int pos = r.nextInt(CONSONANTS.length()); 
+				c = CONSONANTS.charAt(pos);
 			}
 			
 			grid[i] = new Letter(c);

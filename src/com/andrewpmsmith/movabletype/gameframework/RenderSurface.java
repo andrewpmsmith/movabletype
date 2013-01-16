@@ -108,18 +108,16 @@ public class RenderSurface extends SurfaceView implements SurfaceHolder.Callback
 
 	public RenderSurface(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		// TODO Auto-generated constructor stub
 	}
 
 	public RenderSurface(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
-		// TODO Auto-generated method stub
-		
+		// Implementation required by interface SurfaceHolder.Callback
+		// Not used.
 	}
 
 	@Override

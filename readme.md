@@ -14,12 +14,17 @@ store at https://itunes.apple.com/gb/app/letterpress-word-game/id526619424?mt=8.
 The main difference is that both players use the same device, therefore 
 it can be played without an internet connection.
 
+Building
+--------
+- To build through eclipse, import the project and build.
+- To build from the command line type `ant`
+
 Source Code
 -----------
 
 The source is divided into the following packages:
 
-- gameframework: A generic frame work for drawing simple graphics, animations and accepting touch events.
+- gameframework: A generic frame work for drawing simple graphics/animations and accepting touch events.
 - model: Manages the game state
 - ui: The user interface
 

@@ -17,14 +17,14 @@
     <string name="title_activity_dashboard">DashboardActivity</string>
     <string name="title_activity_instructions">InstructionsActivity</string>
 	
-    <string-array name="dashboard_options">
-        <item>New Game</item>
-        <item>How to play</item>
-    </string-array>
+    <string name="new_game">New Game</string>
+    <string name="how_to_play">How to play</string>
     
     <string name="loading">Loading</string>
-    <string name="loading_message">Preparing the application for use. This may 
-        take up to a minute. This will only happen once.</string>
+    <string name="loading_message">
+        Unpacking the word list. This may take up to a minute. This will only 
+        happen the first time you load the app.
+    </string>
     
     <string name="saved_game">Saved Game</string>
     

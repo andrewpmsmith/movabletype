@@ -46,6 +46,15 @@ public class WordList extends SQLiteOpenHelper {
 		onCreate(db);
 
 	}
+	
+	/*
+	 * Used for testing only
+	 */
+	public void reCreate() {
+		SQLiteDatabase db = getReadableDatabase();
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_WORDS);
+		onCreate(db);
+	}
 
 	private void addWordsTable(SQLiteDatabase db) {
 
@@ -111,8 +120,12 @@ public class WordList extends SQLiteOpenHelper {
 	}
 
 	public boolean wordInDictionary(String word) {
-
-		SQLiteDatabase db = this.getReadableDatabase();
+		
+		if (word==null || !word.matches("^[A-Z]+$")) {
+			return false;
+		}
+		
+		SQLiteDatabase db = getReadableDatabase();
 
 		Cursor c = db.rawQuery("SELECT * FROM " + TABLE_WORDS + " WHERE "
 				+ KEY_WORD + "= '" + word + "'", null);

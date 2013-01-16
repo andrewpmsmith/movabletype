@@ -1,7 +1,7 @@
 package com.andrewpmsmith.movabletype.ui;
 
 import com.andrewpmsmith.movabletype.gameframework.TextWidget;
-import com.andrewpmsmith.movabletype.gameframework.WidgetClickObserver;
+import com.andrewpmsmith.movabletype.gameframework.WidgetClickListener;
 
 import android.util.SparseIntArray;
 
@@ -18,9 +18,9 @@ public class Tile extends TextWidget {
 	
 	public static Tile tileFactory(int index, String letter,
 			int color, int textColor, int x, int y, int width, int height,
-			WidgetClickObserver clickObserver) {
+			WidgetClickListener clickListener) {
 		Tile tile = new Tile(index, color, letter, textColor);
-		tile.setClickObserver(clickObserver);
+		tile.setClickListener(clickListener);
 		tile.applyLayout(x, y, width, height);
 		return tile;
 	}
@@ -42,15 +42,18 @@ public class Tile extends TextWidget {
 		mPositionInGrid_y = y;
 	}
 	
-	/* Calculate the text size relative to the width of the widget.
-	 * Calculate based on the letter "W" (the widest char) so other letters are
-	 * scaled evenly.Results are hashed to avoid many per widget calculations */
+	/* 
+	 * Base calculations on the widest chat 'W', rather than the actual value 
+	 * for consistency of scalling across all widgets.
+	 * Results are hashed to avoid many per widget calculations
+	 */
 	@Override
 	protected int calculateTextSize(String text, int width) {
 		
 		int ret;
 		
-		int hashedValue = mTextSizeCalculationHash.get(width, -1);
+		final int NOT_IN_HASH = -1;
+		int hashedValue = mTextSizeCalculationHash.get(width, NOT_IN_HASH);
 		
 		if (hashedValue>=0) {
 			ret = hashedValue;
