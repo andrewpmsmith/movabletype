@@ -100,7 +100,7 @@ public class Widget {
 	}
 
 	public synchronized void setShadow(int radius, int color) {
-		// mPaint must not be accessed while drawing as it will casue a
+		// mPaint must not be accessed while drawing as it will cause a
 		// segmentation fault
 		mPaint.setShadowLayer(radius, 0, 0, color);
 	}
