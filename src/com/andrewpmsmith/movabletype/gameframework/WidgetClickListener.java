@@ -6,7 +6,7 @@ package com.andrewpmsmith.movabletype.gameframework;
  * @author Andrew Smith
  */
 public interface WidgetClickListener {
-	
+
 	public void onClick(Widget widget);
-	
+
 }

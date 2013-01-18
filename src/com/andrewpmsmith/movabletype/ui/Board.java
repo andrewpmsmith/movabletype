@@ -25,13 +25,14 @@ import com.andrewpmsmith.movabletype.gameframework.WidgetDragListener;
 import com.andrewpmsmith.movabletype.model.GameModel;
 
 /**
- * Controls the rendering of the board, including the letter grid, the word,
- * the scores, and the "clear" and "submit" buttons.
+ * Controls the rendering of the board, including the letter grid, the word, the
+ * scores, and the "clear" and "submit" buttons.
  * 
- * The state of the game is managed by a GameModel object passed into the Board's 
- * constructor. The Board will render the game contained in the GameModel. It 
- * will manage the user interaction, passing turn details to the GameModel.
- *
+ * The state of the game is managed by a GameModel object passed into the
+ * Board's constructor. The Board will render the game contained in the
+ * GameModel. It will manage the user interaction, passing turn details to the
+ * GameModel.
+ * 
  * @author Andrew Smith
  */
 public class Board extends RenderSurface implements WidgetClickListener,
@@ -281,39 +282,39 @@ public class Board extends RenderSurface implements WidgetClickListener,
 	}
 
 	@Override
-	public void onDragStart(Widget w) {
+	public void onDragStart(Widget widget) {
 
 		mDragAnimation = DragAnimation.NONE;
 		mPlaceHolderIndex = PLACEHOLDER_UNUSED;
 
-		Tile t = (Tile) w;
+		Tile tile = (Tile) widget;
 
-		removeTileFromWord(t);
+		removeTileFromWord(tile);
 
-		t.setShadow(TILE_SHADOW_RADIUS, mDropShadowColor);
+		tile.setShadow(TILE_SHADOW_RADIUS, mDropShadowColor);
 
 		float angle = (mRand.nextFloat() * (Math.abs(MIN_DRAG_ROTATION) + Math
 				.abs(MAX_DRAG_ROTATION))) + MIN_DRAG_ROTATION;
-		t.cancelAllAnimations();
-		t.addAnimation(new RotationAnimation(t, ANIMATION_DURATION, angle));
+		tile.cancelAllAnimations();
+		tile.addAnimation(new RotationAnimation(tile, ANIMATION_DURATION, angle));
 	}
 
 	@Override
-	public void onDragEnd(Widget w) {
+	public void onDragEnd(Widget widget) {
 
-		Tile t = (Tile) w;
+		Tile tile = (Tile) widget;
 
-		t.setShadow(0, 0);
+		tile.setShadow(0, 0);
 
-		t.cancelAllAnimations();
-		t.addAnimation(new RotationAnimation(t, ANIMATION_DURATION, 0));
+		tile.cancelAllAnimations();
+		tile.addAnimation(new RotationAnimation(tile, ANIMATION_DURATION, 0));
 
-		if (w.getY() <= mAddToWordThreshold
+		if (widget.getY() <= mAddToWordThreshold
 				&& mPlaceHolderIndex != PLACEHOLDER_UNUSED) {
-			mWord.add(mPlaceHolderIndex, t);
+			mWord.add(mPlaceHolderIndex, tile);
 		} else {
-			animateToPosition(t, t.mPositionInGrid_x, t.mPositionInGrid_y,
-					Tile.widthInGrid);
+			animateToPosition(tile, tile.mPositionInGrid_x,
+					tile.mPositionInGrid_y, Tile.widthInGrid);
 		}
 
 		// remove the place holder tile
@@ -324,24 +325,24 @@ public class Board extends RenderSurface implements WidgetClickListener,
 	}
 
 	@Override
-	public void onDrag(Widget w, int x, int y) {
+	public void onDrag(Widget widget, int x, int y) {
 
-		Tile t = (Tile) w;
+		Tile tile = (Tile) widget;
 
 		// Reposition tile according to drag coordinates
-		t.setX(x);
-		t.setY(y);
+		tile.setX(x);
+		tile.setY(y);
 
 		// When dragged above the grid, resize the tile to fit in the word
 		if (y < mGridTop && mDragAnimation != DragAnimation.CONTRACTING) {
 
 			mDragAnimation = DragAnimation.CONTRACTING;
-			expandContractTile(t, Tile.widthInWord);
+			expandContractTile(tile, Tile.widthInWord);
 
 		} else if (y >= mGridTop && mDragAnimation != DragAnimation.EXPANDING) {
 
 			mDragAnimation = DragAnimation.EXPANDING;
-			expandContractTile(t, Tile.widthInGrid);
+			expandContractTile(tile, Tile.widthInGrid);
 
 		}
 
@@ -372,29 +373,31 @@ public class Board extends RenderSurface implements WidgetClickListener,
 		}
 	}
 
-	private void expandContractTile(Tile t, int newWidth) {
+	private void expandContractTile(Tile tile, int newWidth) {
 		if (mExpandContractAnimation != null)
-			t.cancelAnimation(mExpandContractAnimation);
-		mExpandContractAnimation = new ExpandContractAnimation(t,
+			tile.cancelAnimation(mExpandContractAnimation);
+		mExpandContractAnimation = new ExpandContractAnimation(tile,
 				ANIMATION_DURATION, newWidth);
-		t.addAnimation(mExpandContractAnimation);
+		tile.addAnimation(mExpandContractAnimation);
 	}
 
-	private void animateToPosition(Tile t, int x, int y, int width) {
-		t.cancelAllAnimations();
-		t.addAnimation(new RotationAnimation(t, ANIMATION_DURATION, 0));
-		t.addAnimation(new TranslationAnimation(t, ANIMATION_DURATION, x, y));
-		t.addAnimation(new ExpandContractAnimation(t, ANIMATION_DURATION, width));
+	private void animateToPosition(Tile tile, int x, int y, int width) {
+		tile.cancelAllAnimations();
+		tile.addAnimation(new RotationAnimation(tile, ANIMATION_DURATION, 0));
+		tile.addAnimation(new TranslationAnimation(tile, ANIMATION_DURATION, x,
+				y));
+		tile.addAnimation(new ExpandContractAnimation(tile, ANIMATION_DURATION,
+				width));
 	}
 
-	private void addTileToWord(Tile t) {
-		mWord.remove(t);
-		mWord.add(t);
+	private void addTileToWord(Tile tile) {
+		mWord.remove(tile);
+		mWord.add(tile);
 		presentWord();
 	}
 
-	private void removeTileFromWord(Tile t) {
-		mWord.remove(t);
+	private void removeTileFromWord(Tile tile) {
+		mWord.remove(tile);
 		presentWord();
 	}
 
