@@ -68,6 +68,7 @@ public class GameModel implements Serializable {
 
 	private GameState mGameState;
 	private GameResult mGameResult;
+	private boolean mHasPassed;
 	private WordTrie mPlayedWords = new WordTrie();
 
 	private int mPlayer1Points;
@@ -196,6 +197,7 @@ public class GameModel implements Serializable {
 		TurnResult ret = applyRules(word);
 
 		if (ret == TurnResult.SUCCESS) {
+			mHasPassed = false;
 
 			mPlayedWords.add(word);
 
@@ -227,17 +229,7 @@ public class GameModel implements Serializable {
 			}
 
 			if (gameIsOver) {
-
-				mGameState = GameState.GAME_OVER;
-
-				if (mPlayer1Points > mPlayer2Points) {
-					mGameResult = GameResult.PLAYER1_WIN;
-				} else if (mPlayer1Points < mPlayer2Points) {
-					mGameResult = GameResult.PLAYER2_WIN;
-				} else {
-					mGameResult = GameResult.DRAW;
-				}
-
+				endGame();
 			} else if (mGameState == GameState.PLAYER1_TURN) {
 				mGameState = GameState.PLAYER2_TURN;
 			} else if (mGameState == GameState.PLAYER2_TURN) {
@@ -251,10 +243,25 @@ public class GameModel implements Serializable {
 	}
 
 	public void passTurn() {
-		if (mGameState == GameState.PLAYER1_TURN) {
+		if (mHasPassed) {
+			endGame();
+		} else if (mGameState == GameState.PLAYER1_TURN) {
 			mGameState = GameState.PLAYER2_TURN;
 		} else if (mGameState == GameState.PLAYER2_TURN) {
 			mGameState = GameState.PLAYER1_TURN;
+		}
+		mHasPassed = true;
+	}
+
+	private void endGame() {
+		mGameState = GameState.GAME_OVER;
+
+		if (mPlayer1Points > mPlayer2Points) {
+			mGameResult = GameResult.PLAYER1_WIN;
+		} else if (mPlayer1Points < mPlayer2Points) {
+			mGameResult = GameResult.PLAYER2_WIN;
+		} else {
+			mGameResult = GameResult.DRAW;
 		}
 	}
 

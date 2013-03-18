@@ -462,75 +462,19 @@ public class Board extends RenderSurface implements WidgetClickListener,
 
 		GameModel.TurnResult turnResult = mGameModel.playTurn();
 
-		final Resources res = getResources();
-		final String dismiss = res.getString(R.string.dismiss_message);
 
 		if (turnResult == GameModel.TurnResult.SUCCESS) {
 
 			mLastPlayedWord = new LinkedList<Tile>(mWord);
 
-			returnAllTilesToGrid();
-			updateGrid();
-
-			GameModel.GameState state = mGameModel.getGameState();
-
-			if (state != GameModel.GameState.GAME_OVER) {
-
-				String message = res.getString(R.string.turn_played);
-				message = String
-						.format(message,
-								(state == GameModel.GameState.PLAYER1_TURN) ? "1"
-										: "2");
-
-				int playerColor = state == GameModel.GameState.PLAYER1_TURN ? mPlayer1Color
-						: mPlayer2Color;
-				mPlayButton.setColor(playerColor);
-
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-						getContext());
-				builder.setMessage(message)
-						.setPositiveButton(dismiss,
-								new AlertDialog.OnClickListener() {
-
-									@Override
-									public void onClick(DialogInterface arg0,
-											int arg1) {
-										shakeTiles(mLastPlayedWord);
-
-									}
-
-								}).show();
-
-			} else {
-				GameModel.GameResult result = mGameModel.getResult();
-
-				String message;
-				if (result == GameModel.GameResult.DRAW) {
-					message = res.getString(R.string.game_over_draw);
-				} else {
-					message = res.getString(R.string.game_over);
-					message = String.format(message,
-							(result == GameModel.GameResult.PLAYER1_WIN) ? "1"
-									: "2");
-				}
-
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-						getContext());
-				builder.setMessage(message)
-						.setNeutralButton(dismiss,
-								new DialogInterface.OnClickListener() {
-
-									@Override
-									public void onClick(DialogInterface dialog,
-											int which) {
-										((Activity) getContext()).finish();
-									}
-								}).show();
-
-			}
+			endTurn();
 
 		} else {
 			AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+			final Resources res = getResources();
+			final String dismiss = res.getString(R.string.dismiss_message);
+			final String pass = res.getString(R.string.pass_message);
 
 			String word = mGameModel.getWord();
 			String message;
@@ -555,9 +499,88 @@ public class Board extends RenderSurface implements WidgetClickListener,
 			default:
 				message = res.getString(R.string.word_error);
 			}
+			
+			DialogInterface.OnClickListener passListener =
+				new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						mGameModel.passTurn();
+						endTurn();
+					}
+				};
 
-			builder.setMessage(message).setPositiveButton(dismiss, null).show();
+			builder.setMessage(message)
+				.setPositiveButton(dismiss, null)
+				.setNegativeButton(pass, passListener)
+				.show();
 		}
 
+	}
+	
+	private void endTurn() {
+		final Resources res = getResources();
+		final String dismiss = res.getString(R.string.dismiss_message);
+		returnAllTilesToGrid();
+		updateGrid();
+
+		GameModel.GameState state = mGameModel.getGameState();
+
+		if (state != GameModel.GameState.GAME_OVER) {
+
+			String message = res.getString(R.string.turn_played);
+			message = String
+					.format(message,
+							(state == GameModel.GameState.PLAYER1_TURN) ? "1"
+									: "2");
+
+			int playerColor = state == GameModel.GameState.PLAYER1_TURN ? mPlayer1Color
+					: mPlayer2Color;
+			mPlayButton.setColor(playerColor);
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(
+					getContext());
+			builder.setMessage(message)
+					.setPositiveButton(dismiss,
+							new AlertDialog.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface arg0,
+										int arg1) {
+									if (mLastPlayedWord != null)
+									{
+										shakeTiles(mLastPlayedWord);
+									}
+								}
+
+							}).show();
+
+		} else {
+			GameModel.GameResult result = mGameModel.getResult();
+
+			String message;
+			if (result == GameModel.GameResult.DRAW) {
+				message = res.getString(R.string.game_over_draw);
+			} else {
+				message = res.getString(R.string.game_over);
+				message = String.format(message,
+						(result == GameModel.GameResult.PLAYER1_WIN) ? "1"
+								: "2");
+			}
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(
+					getContext());
+			builder.setMessage(message)
+					.setNeutralButton(dismiss,
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									((Activity) getContext()).finish();
+								}
+							}).show();
+
+		}
 	}
 }
