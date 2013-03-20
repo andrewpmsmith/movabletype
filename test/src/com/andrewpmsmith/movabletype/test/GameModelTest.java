@@ -53,18 +53,7 @@ public class GameModelTest extends AndroidTestCase {
 				 "PQRST" +
 				 "UVWXY").toCharArray();
 		
-		final LetterState UNPLAYED = LetterState.UNPLAYED;
-		final LetterState[] states = {
-				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,
-				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,
-				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,
-				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,
-				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,};
-		
-		GameState gameState = GameState.PLAYER1_TURN;
-		int p1Points = 0;
-		int p2Points = 0;
-		
+		GameModel gm = createSampleModel(testGrid);
 		
 		// Define some sample turns
 		
@@ -98,15 +87,6 @@ public class GameModelTest extends AndroidTestCase {
 				{12,10},
 				{12,11}};
 		
-		
-		// Create the GameModel instance
-		
-		GameModel gm = new GameModel(testGrid,
-				states,
-				gameState,
-				p1Points,
-				p2Points,
-				getContext());
 		
 		assertNotNull(gm);
 		
@@ -164,6 +144,31 @@ public class GameModelTest extends AndroidTestCase {
 		Assert.assertEquals(gr, GameResult.PLAYER1_WIN);
 		
 		
+	}
+
+	private GameModel createSampleModel(final char[] testGrid) {
+		final LetterState UNPLAYED = LetterState.UNPLAYED;
+		final LetterState[] states = {
+				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,
+				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,
+				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,
+				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,
+				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,};
+		
+		GameState gameState = GameState.PLAYER1_TURN;
+		int p1Points = 0;
+		int p2Points = 0;
+		
+		
+		// Create the GameModel instance
+		
+		GameModel gm = new GameModel(testGrid,
+				states,
+				gameState,
+				p1Points,
+				p2Points,
+				getContext());
+		return gm;
 	}
 	
 	/*
