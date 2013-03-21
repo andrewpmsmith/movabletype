@@ -58,14 +58,14 @@ public class GameModelTest extends AndroidTestCase {
 		// Define some sample turns
 		
 		final String[] turns = {
-				"THE",		//*p1=3   p2=0
-				"QUICK",	// p1=3  *p2=5
-				"BROWN",	//*p1=8   p2=5
-				"FOX",		// p1=7  *p2=8
-				"JUMPS",	//*p1=11  p2=7
-				"OVER",		// p1=9  *p2=10
-				"LAY",		//*p1=12  p2=10
-				"DOG"		// p1=12 *p2=11
+				"THE",		//*p1= 3  p2= 0
+				"QUICK",	// p1= 3 *p2= 6 (1 surround)
+				"BROWN",	//*p1= 8  p2= 6
+				"FOX",		// p1= 7 *p2= 9 (1 steal)
+				"JUMPS",	//*p1=12  p2= 7 (2 steals)
+				"OVER",		// p1= 8 *p2=13 (complicated)
+				"LAY",		//*p1=11  p2=13
+				"DOG"		// p1=11 *p2=14
 				};
 		
 		final String[] invalidTurns = {
@@ -78,14 +78,14 @@ public class GameModelTest extends AndroidTestCase {
 		};
 		
 		final int[][] scores = {
-				{3,0},
-				{3,5},
-				{8,5},
-				{7,8},
-				{11,7},
-				{9,10},
-				{12,10},
-				{12,11}};
+				{ 3, 0},
+				{ 3, 6},
+				{ 8, 6},
+				{ 7, 9},
+				{12, 7},
+				{ 8,13},
+				{11,13},
+				{11,14}};
 		
 		
 		assertNotNull(gm);
@@ -119,8 +119,14 @@ public class GameModelTest extends AndroidTestCase {
 			assertEquals(tr,TurnResult.SUCCESS);
 			
 			// Test the score was correctly updated
-			assertEquals(scores[i][0], gm.getPoints(GameModel.PLAYER1));
-			assertEquals(scores[i][1], gm.getPoints(GameModel.PLAYER2));
+			assertEquals(
+					String.format("move %d player 1 score", i),
+					scores[i][0], 
+					gm.getPoints(GameModel.PLAYER1));
+			assertEquals(
+					String.format("move %d player 2 score", i),
+					scores[i][1], 
+					gm.getPoints(GameModel.PLAYER2));
 			
 			// Test that player turns switch correctly
 			GameState gs = gm.getGameState();
@@ -137,11 +143,11 @@ public class GameModelTest extends AndroidTestCase {
 		
 		// Test game is marked as over
 		GameState gs = gm.getGameState();
-		Assert.assertTrue(gs==GameState.GAME_OVER);
+		Assert.assertEquals(GameState.GAME_OVER, gs);
 		
 		// Test the correct winner was announced
 		GameResult gr = gm.getResult();
-		Assert.assertEquals(gr, GameResult.PLAYER1_WIN);
+		Assert.assertEquals(GameResult.PLAYER2_WIN, gr);
 		
 		
 	}
@@ -169,6 +175,33 @@ public class GameModelTest extends AndroidTestCase {
 				p2Points,
 				getContext());
 		return gm;
+	}
+	
+	/* Capturing an opponent's letter by surrounding it must increase
+	 * your score and decrease your opponent's. Player 1 submits "MY"
+	 * and player 2 submits "ME" to end up with 3 points to 0.
+	 */
+	public void testCaptureScore() {
+		final char[] testGrid =
+			("XXXMY" +
+			 "XXXXE" +
+			 "XXXXX" +
+			 "XXXXX" +
+			 "XXXXX").toCharArray();
+
+		GameModel gm = createSampleModel(testGrid);
+		
+		gm.setWord(generateIndexListFromWord("MY", testGrid));
+		TurnResult result1 = gm.playTurn();
+		gm.setWord(generateIndexListFromWord("ME", testGrid));
+		TurnResult result2 = gm.playTurn();
+		int points1 = gm.getPoints(GameModel.PLAYER1);
+		int points2 = gm.getPoints(GameModel.PLAYER2);
+		
+		Assert.assertEquals("turn 1 result", TurnResult.SUCCESS, result1);
+		Assert.assertEquals("turn 2 result", TurnResult.SUCCESS, result2);
+		Assert.assertEquals("player 1 score", 0, points1);
+		Assert.assertEquals("player 2 score", 3, points2);
 	}
 	
 	/*

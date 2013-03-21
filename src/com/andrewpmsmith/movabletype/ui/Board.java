@@ -444,11 +444,15 @@ public class Board extends RenderSurface implements WidgetClickListener,
 
 		mGameModel.setWord(letters);
 
-		mPlayer1Score.setText(String.valueOf(mGameModel
-				.getPoints(GameModel.PLAYER1)));
-		mPlayer2Score.setText(String.valueOf(mGameModel
-				.getPoints(GameModel.PLAYER2)));
+		updateScore();
 
+	}
+
+	private void updateScore() {
+		mPlayer1Score.setText(String.valueOf(
+				mGameModel.getPoints(GameModel.PLAYER1)));
+		mPlayer2Score.setText(String.valueOf(
+				mGameModel.getPoints(GameModel.PLAYER2)));
 	}
 
 	private void shakeTiles(List<Tile> tiles) {
@@ -466,6 +470,7 @@ public class Board extends RenderSurface implements WidgetClickListener,
 		final String dismiss = res.getString(R.string.dismiss_message);
 
 		if (turnResult == GameModel.TurnResult.SUCCESS) {
+			updateScore();
 
 			mLastPlayedWord = new LinkedList<Tile>(mWord);
 

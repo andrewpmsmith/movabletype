@@ -216,7 +216,7 @@ public class GameModel implements Serializable {
 
 			mWord = null;
 
-			calculateLetterState();
+			makeCaptures();
 
 			// check if game is over
 			boolean gameIsOver = true;
@@ -310,7 +310,11 @@ public class GameModel implements Serializable {
 
 	}
 
-	private void calculateLetterState() {
+	/**
+	 * Check for letters that are surrounded by a single player, and change
+	 * their state if needed. Also adjust the scores if letters change owner.
+	 */
+	private void makeCaptures() {
 
 		for (int tile = 0; tile < GRID_ITEMS; ++tile) {
 
@@ -343,6 +347,8 @@ public class GameModel implements Serializable {
 
 			}
 
+			// Owners: player 1: 1, player 2: -1, neutral: 0
+			int oldOwner = getOwner(tile);
 			if (player1Surrounded) {
 				mGrid[tile].mLetterState = LetterState.PLAYER1_SURROUNDED;
 			} else if (!player1Surrounded
@@ -354,7 +360,43 @@ public class GameModel implements Serializable {
 					&& currentTileState == LetterState.PLAYER2_SURROUNDED) {
 				mGrid[tile].mLetterState = LetterState.PLAYER2_OWNED;
 			}
+			int newOwner = getOwner(tile);
+			if (newOwner != oldOwner) {
+				if (oldOwner == 1) {
+					mPlayer1Points -= oldOwner;
+				} else {
+					mPlayer2Points += oldOwner;
+				}
+				if (newOwner == 1) {
+					mPlayer1Points += newOwner;
+				} else {
+					mPlayer2Points -= newOwner;
+				}
+			}
 		}
+	}
+
+	/**
+	 * Look up who owns a tile.
+	 * @param tile - the index of the tile to look at.
+	 * @return 1 for player 1, -1 for player 2, 0 for neutral.
+	 */
+	private int getOwner(int tile) {
+		int oldOwner;
+		switch (mGrid[tile].mLetterState) {
+		case PLAYER1_SURROUNDED:
+		case PLAYER1_OWNED:
+			oldOwner = 1;
+			break;
+		case PLAYER2_SURROUNDED:
+		case PLAYER2_OWNED:
+			oldOwner = -1;
+			break;
+		default:
+			oldOwner = 0;
+			break;
+		}
+		return oldOwner;
 	}
 
 	private TurnResult applyRules(String word) {
