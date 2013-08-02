@@ -26,7 +26,7 @@ public class GameModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final int NUMBER_OF_VOWELS_ON_BOARD = 4;
-	private static final String CONSONANTS = "BCDFHJKLMNPQRSTVWXYZ";
+	private static final String CONSONANTS = "BCDFHJKLMNPRSTVWXYZQ";
 	private static final String VOWELS = "AEIOU";
 
 	public enum GameState {
@@ -282,28 +282,29 @@ public class GameModel implements Serializable {
 
 		Random r = new Random();
 
+		boolean hasU = false;
 		List<Integer> v = new LinkedList<Integer>();
 		while (v.size() < NUMBER_OF_VOWELS_ON_BOARD) {
 			int index = r.nextInt(GRID_ITEMS);
 			if (!v.contains(index))
+			{
 				v.add(index);
+				// pick a random vowel
+				int pos = r.nextInt(VOWELS.length());
+				char c = VOWELS.charAt(pos);
+				grid[index] = new Letter(c);
+				hasU = hasU || (c == 'U');
+			}
 		}
 
 		for (int i = 0; i < GRID_ITEMS; ++i) {
-
-			char c;
-
-			if (v.contains(i)) {
-				// pick a random vowel
-				int pos = r.nextInt(VOWELS.length());
-				c = VOWELS.charAt(pos);
-			} else {
-				// pick a random consonant
-				int pos = r.nextInt(CONSONANTS.length());
-				c = CONSONANTS.charAt(pos);
+			if ( ! v.contains(i)) {
+				// pick a random consonant, but skip Q unless we have a U
+				int consonantChoices = CONSONANTS.length() - (hasU ? 0 : 1);
+				int pos = r.nextInt(consonantChoices);
+				char c = CONSONANTS.charAt(pos);
+				grid[i] = new Letter(c);
 			}
-
-			grid[i] = new Letter(c);
 		}
 
 		return grid;
