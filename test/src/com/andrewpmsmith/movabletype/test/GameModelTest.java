@@ -53,18 +53,7 @@ public class GameModelTest extends AndroidTestCase {
 				 "PQRST" +
 				 "UVWXY").toCharArray();
 		
-		final LetterState UNPLAYED = LetterState.UNPLAYED;
-		final LetterState[] states = {
-				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,
-				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,
-				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,
-				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,
-				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,};
-		
-		GameState gameState = GameState.PLAYER1_TURN;
-		int p1Points = 0;
-		int p2Points = 0;
-		
+		GameModel gm = createSampleModel(testGrid);
 		
 		// Define some sample turns
 		
@@ -98,15 +87,6 @@ public class GameModelTest extends AndroidTestCase {
 				{12,10},
 				{12,11}};
 		
-		
-		// Create the GameModel instance
-		
-		GameModel gm = new GameModel(testGrid,
-				states,
-				gameState,
-				p1Points,
-				p2Points,
-				getContext());
 		
 		assertNotNull(gm);
 		
@@ -165,6 +145,31 @@ public class GameModelTest extends AndroidTestCase {
 		
 		
 	}
+
+	private GameModel createSampleModel(final char[] testGrid) {
+		final LetterState UNPLAYED = LetterState.UNPLAYED;
+		final LetterState[] states = {
+				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,
+				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,
+				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,
+				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,
+				UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,UNPLAYED,};
+		
+		GameState gameState = GameState.PLAYER1_TURN;
+		int p1Points = 0;
+		int p2Points = 0;
+		
+		
+		// Create the GameModel instance
+		
+		GameModel gm = new GameModel(testGrid,
+				states,
+				gameState,
+				p1Points,
+				p2Points,
+				getContext());
+		return gm;
+	}
 	
 	/*
 	 * Test that instances can be serialized and restored
@@ -184,6 +189,108 @@ public class GameModelTest extends AndroidTestCase {
 		GameModel gm2 = GameModel.deserialize(s, getContext());
 		Assert.assertNotNull(gm2);
 		
+	}
+	
+	/*
+	 * Test that two passes end the game
+	 */
+	public void test_two_passes() {
+		
+		// Initialise a new game with sample data
+		final char[] testGrid =
+				("ABCDE" +
+				 "FGHIJ" +
+				 "KLMNO" +
+				 "PQRST" +
+				 "UVWXY").toCharArray();
+		GameModel gm = createSampleModel(testGrid);
+
+		GameState state0 = gm.getGameState();
+
+		gm.passTurn();
+		GameState state1 = gm.getGameState();
+		
+		gm.passTurn();
+		GameState state2 = gm.getGameState();
+		
+		GameResult endResult = gm.getResult();
+		
+		Assert.assertEquals("start state", GameState.PLAYER1_TURN, state0);
+		Assert.assertEquals("after pass 1", GameState.PLAYER2_TURN, state1);
+		Assert.assertEquals("after pass 2", GameState.GAME_OVER, state2);
+		Assert.assertEquals("end result", GameResult.DRAW, endResult);
+	}
+	
+	/*
+	 * Test that a valid turn resets the number of passes.
+	 */
+	public void test_pass_play_pass() {
+		
+		// Initialise a new game with sample data
+		final char[] testGrid =
+				("ABCDE" +
+				 "FGHIJ" +
+				 "KLMNO" +
+				 "PQRST" +
+				 "UVWXY").toCharArray();
+		GameModel gm = createSampleModel(testGrid);
+
+		GameState state0 = gm.getGameState();
+
+		gm.passTurn();
+		GameState state1 = gm.getGameState();
+		
+		gm.setWord(generateIndexListFromWord("GO", testGrid));
+		TurnResult result = gm.playTurn();
+		GameState state2 = gm.getGameState();
+		
+		gm.passTurn();
+		GameState state3 = gm.getGameState();
+
+		Assert.assertEquals("start state", GameState.PLAYER1_TURN, state0);
+		Assert.assertEquals("after pass 1", GameState.PLAYER2_TURN, state1);
+		Assert.assertEquals("play result", TurnResult.SUCCESS, result);
+		Assert.assertEquals("after play", GameState.PLAYER1_TURN, state2);
+		Assert.assertEquals("after pass 2", GameState.PLAYER2_TURN, state3);
+	}
+	
+	/*
+	 * Test that an invalid turn does not reset the number of passes.
+	 */
+	public void test_pass_fail_pass() {
+		
+		// Initialise a new game with sample data
+		final char[] testGrid =
+				("ABCDE" +
+				 "FGHIJ" +
+				 "KLMNO" +
+				 "PQRST" +
+				 "UVWXY").toCharArray();
+		GameModel gm = createSampleModel(testGrid);
+
+		GameState state0 = gm.getGameState();
+
+		gm.passTurn();
+		GameState state1 = gm.getGameState();
+		
+		gm.setWord(generateIndexListFromWord("ZZ", testGrid));
+		TurnResult result = gm.playTurn();
+		GameState state2 = gm.getGameState();
+		
+		gm.passTurn();
+		GameState state3 = gm.getGameState();
+
+		GameResult endResult = gm.getResult();
+		
+		Assert.assertEquals("start state", GameState.PLAYER1_TURN, state0);
+		Assert.assertEquals("after pass 1", GameState.PLAYER2_TURN, state1);
+		Assert.assertEquals(
+				"play result", 
+				TurnResult.WORD_LESS_THAN_TWO_LETTERS, 
+				result);
+		Assert.assertEquals("after play", GameState.PLAYER2_TURN, state2);
+		Assert.assertEquals("after pass 2", GameState.GAME_OVER, state3);
+		Assert.assertEquals("end result", GameResult.DRAW, endResult);
 	}
 	
 	

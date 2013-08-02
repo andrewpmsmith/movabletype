@@ -6,6 +6,7 @@
     <string name="clear_button">clear</string>
     <string name="submit_button">submit</string>
     <string name="dismiss_message">OK</string>
+    <string name="pass_message">Pass</string>
     <string name="game_over">Game Over\nPlayer %1$s is the winner!</string>
     <string name="game_over_draw">Game Over\nIt\'s a draw!</string>
     <string name="turn_played">Hand over to player %1$s</string>
