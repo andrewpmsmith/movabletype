@@ -1,6 +1,8 @@
 .classpath
 bin/*
 gen/*
+test/bin
+test/gen
 .settings
 lint.xml
 build.xml
